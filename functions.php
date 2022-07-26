@@ -49,7 +49,7 @@ function nesctheme_setup() {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
-			'menu-1' => esc_html__( 'Primary', 'nesctheme' ),
+			'primary' => esc_html__( 'Primary', 'nesctheme' ),
 		)
 	);
 
@@ -145,7 +145,8 @@ function nesctheme_scripts() {
 	wp_style_add_data( 'nesctheme-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'nesctheme-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true ); 
-	wp_enqueue_script( 'bootstrap.min', get_template_directory_uri() . '/bootstrap/js/bootstrap.min.js', array(), '5.2.0');
+	wp_enqueue_script( 'bootstrap.min', get_template_directory_uri() . '/bootstrap/js/bootstrap.min.js', array(), '5.2.0'); 
+	wp_enqueue_script( 'header', get_template_directory_uri() . '/custom-scripts/header.js', array(), _S_VERSION, true ); 
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
