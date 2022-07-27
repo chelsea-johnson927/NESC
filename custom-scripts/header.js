@@ -7,10 +7,8 @@ function toggleNav() {
   
 
     var toggleNav = document.getElementById("navBar");
-    toggleNav.classList.toggle("mystyle");
+    toggleNav.classList.toggle("toggleNav");
 
 }
-
-
 
   });
