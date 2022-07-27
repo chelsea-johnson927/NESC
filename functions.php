@@ -7,6 +7,9 @@
  * @package NESCTheme
  */
 
+require_once 'custom-elementor.php';  
+
+
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
 	define( '_S_VERSION', '1.0.0' );
@@ -139,7 +142,7 @@ add_action( 'widgets_init', 'nesctheme_widgets_init' );
  */
 function nesctheme_scripts() {
 	wp_enqueue_style( 'nesctheme-style', get_stylesheet_uri(), array(), _S_VERSION ); 
-	wp_enqueue_style( 'main', get_template_directory_uri() . '/custom-styles/main.css', array(), '1.0.0'); 
+	wp_enqueue_style( 'main', get_template_directory_uri() . '/custom-styles/main.css', array(), '1.0.0');  
 	wp_enqueue_style( 'bootstrap.min', get_template_directory_uri() . '/bootstrap/css/bootstrap.min.css', array(), '5.2.0');
 
 	wp_style_add_data( 'nesctheme-style', 'rtl', 'replace' );
@@ -152,7 +155,26 @@ function nesctheme_scripts() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'nesctheme_scripts' );
+add_action( 'wp_enqueue_scripts', 'nesctheme_scripts' );  
+
+
+
+function my_plugin_frontend_stylesheets() {
+
+	wp_register_style( 'elementor-styles', get_template_directory_uri() . '/custom-styles/elementor-styles.css'  );
+	
+
+	wp_enqueue_style( 'elementor-styles' );
+	
+
+}
+add_action( 'elementor/frontend/after_enqueue_styles', 'my_plugin_frontend_stylesheets' );
+
+
+
+
+
+
 
 /**
  * Implement the Custom Header feature.

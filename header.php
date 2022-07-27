@@ -25,7 +25,7 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'nesctheme' ); ?></a>
 
-			<?php if ( is_front_page() && is_home() ){ 
+			<?php if ( is_front_page()){ 
 
 				echo '<header class="light-theme">'; 
 
@@ -37,7 +37,7 @@
 
 			?> 
 
-			<div class="container"> 
+			<div class="container content-wrap"> 
 				<div class="row"> 
 					<div class="col-sm-12"> 
 						<nav id="navBar" class=""> 
@@ -63,7 +63,7 @@
 					</nav> 
 					</div>   
 				<div class="row">
-				  <div class="col-sm-12">  
+				  <div class="col-sm-12 site-header-wrap">  
 
 						<h1 class="site-header"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?> </a></h1> 
 						<h2 class="site-tagline"><?php bloginfo( 'description' ); ?></h2> 
