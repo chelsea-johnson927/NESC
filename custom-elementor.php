@@ -28,9 +28,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function register_link_image( $widgets_manager ) {
 
-	require_once( __DIR__ . '/widgets/link-image.php' );
+	require_once( __DIR__ . '/widgets/link-image.php' ); 
+	require_once( __DIR__ . '/widgets/calendar-widget.php' );
 
 	$widgets_manager->register( new \Widget_link_image() );
+	$widgets_manager->register( new \Widget_calendar() );
 
 }
 add_action( 'elementor/widgets/register', 'register_link_image' );
