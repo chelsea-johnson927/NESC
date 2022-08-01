@@ -8,7 +8,8 @@
  */
 
 require_once 'custom-elementor.php';   
-require_once 'inc/ajax.php';
+require_once 'inc/ajax.php'; 
+require_once 'inc/registrants-db.php';
 
 
 if ( ! defined( '_S_VERSION' ) ) {
@@ -143,19 +144,21 @@ add_action( 'widgets_init', 'nesctheme_widgets_init' );
  */
 function nesctheme_scripts() {
 	wp_enqueue_style( 'nesctheme-style', get_stylesheet_uri(), array(), _S_VERSION ); 
-	wp_enqueue_style( 'main', get_template_directory_uri() . '/custom-styles/main.css', array(), '1.0.0');  
+	wp_enqueue_style( 'main.css', get_template_directory_uri() . '/custom-styles/main.css', array(), '1.0.0');  
 	wp_enqueue_style( 'bootstrap.min', get_template_directory_uri() . '/bootstrap/css/bootstrap.min.css', array(), '5.2.0'); 
-	wp_enqueue_style( 'main', get_stylesheet_directory_uri() . '/fullcalendar/lib/main.css','all' );  
+	wp_enqueue_style( 'main', get_stylesheet_directory_uri() . '/fullcalendar/lib /main.css','5.11.2','all' );  
 
 	wp_style_add_data( 'nesctheme-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'nesctheme-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true ); 
 	wp_enqueue_script( 'bootstrap.min', get_template_directory_uri() . '/bootstrap/js/bootstrap.min.js', array(), '5.2.0'); 
-	wp_enqueue_script( 'header', get_template_directory_uri() . '/custom-scripts/header.js', array(), _S_VERSION, true );    
+	wp_enqueue_script( 'header', get_template_directory_uri() . '/custom-scripts/header.js', array(), _S_VERSION, true );     
+	wp_enqueue_script( 'main', get_template_directory_uri() . '/fullcalendar/lib/main.js', array('jquery'),'5.11.2',true); 
 	wp_enqueue_script( 'calendar-scripts', get_template_directory_uri() . '/custom-scripts/calendar-scripts.js', array('jquery'),'',true);    
-	wp_localize_script('calendar-scripts', 'soul', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));   
-	wp_enqueue_script( 'main', get_template_directory_uri() . '/fullcalendar/lib/main.js', array('jquery'),'',true); 
-
+	wp_localize_script('calendar-scripts', 'soul', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));    
+	wp_enqueue_script( 'event-form', get_template_directory_uri() . '/custom-scripts/event-form.js', array(), _S_VERSION, true );     
+	wp_localize_script('event-form', 'synth', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ))); 
+	
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -174,6 +177,71 @@ function my_plugin_frontend_stylesheets() {
 
 }
 add_action( 'elementor/frontend/after_enqueue_styles', 'my_plugin_frontend_stylesheets' );
+
+
+// Register Custom Post Type
+function events() {
+
+	$labels = array(
+		'name'                  => _x( 'events', 'Post Type General Name', 'text_domain' ),
+		'singular_name'         => _x( 'event', 'Post Type Singular Name', 'text_domain' ),
+		'menu_name'             => __( 'Events', 'text_domain' ),
+		'name_admin_bar'        => __( 'Events', 'text_domain' ),
+		'archives'              => __( 'Item Archives', 'text_domain' ),
+		'attributes'            => __( 'Item Attributes', 'text_domain' ),
+		'parent_item_colon'     => __( 'Parent Item:', 'text_domain' ),
+		'all_items'             => __( 'All Items', 'text_domain' ),
+		'add_new_item'          => __( 'Add New Item', 'text_domain' ),
+		'add_new'               => __( 'Add New', 'text_domain' ),
+		'new_item'              => __( 'New Item', 'text_domain' ),
+		'edit_item'             => __( 'Edit Item', 'text_domain' ),
+		'update_item'           => __( 'Update Item', 'text_domain' ),
+		'view_item'             => __( 'View Item', 'text_domain' ),
+		'view_items'            => __( 'View Items', 'text_domain' ),
+		'search_items'          => __( 'Search Item', 'text_domain' ),
+		'not_found'             => __( 'Not found', 'text_domain' ),
+		'not_found_in_trash'    => __( 'Not found in Trash', 'text_domain' ),
+		'featured_image'        => __( 'Featured Image', 'text_domain' ),
+		'set_featured_image'    => __( 'Set featured image', 'text_domain' ),
+		'remove_featured_image' => __( 'Remove featured image', 'text_domain' ),
+		'use_featured_image'    => __( 'Use as featured image', 'text_domain' ),
+		'insert_into_item'      => __( 'Insert into item', 'text_domain' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this item', 'text_domain' ),
+		'items_list'            => __( 'Items list', 'text_domain' ),
+		'items_list_navigation' => __( 'Items list navigation', 'text_domain' ),
+		'filter_items_list'     => __( 'Filter items list', 'text_domain' ),
+	);
+	
+	$args = array(
+		'label'                 => __( 'event', 'text_domain' ),
+		'description'           => __( 'monthly events for home calendar', 'text_domain' ),
+		'labels'                => $labels,
+		'supports'              => array( 'title', 'editor', 'thumbnail', 'custom-fields', 'excerpt'),
+		'taxonomies'            => array( 'event' ),
+		'hierarchical'          => false,
+		'public'                => true,
+		'show_ui'               => true,
+		'show_in_menu'          => true,
+		'menu_position'         => 2,
+		'show_in_admin_bar'     => true,
+		'show_in_nav_menus'     => true,
+		'can_export'            => true,
+		'has_archive'           => true,
+		'exclude_from_search'   => false,
+		'publicly_queryable'    => true,
+		'capability_type'		=> 'post', 
+		'taxonomies'          => array( 'category' )
+	);
+	register_post_type( 'events', $args );
+
+}
+add_action( 'init', 'events', 0 ); 
+
+
+
+
+
+
 
 
 
