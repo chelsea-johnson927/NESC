@@ -60,7 +60,25 @@ class Widget_link_image extends \Elementor\Widget_Base {
                     'label' => esc_html__( 'Image Text'),
                     'placeholder' => esc_html__( 'Title'),
                 ]
+            );  
+
+            $this->add_control(
+                'website_link',
+                [
+                    'label' => esc_html__( 'Link', 'plugin-name' ),
+                    'type' => \Elementor\Controls_Manager::URL,
+                    'placeholder' => esc_html__( 'https://your-link.com', 'plugin-name' ),
+                    'options' => [ 'url', 'is_external', 'nofollow' ],
+                    'default' => [
+                        'url' => '',
+                        'is_external' => true,
+                        'nofollow' => true,
+                        // 'custom_attributes' => '',
+                    ],
+                    'label_block' => true,
+                ]
             );
+    
     
             
             $this->add_control(
@@ -84,10 +102,16 @@ class Widget_link_image extends \Elementor\Widget_Base {
 
 	protected function render() { 
         $settings = $this->get_settings_for_display(); 
-
+       
 
         // Get image URL
-		$url =  $settings['image']['url'];
+		$url =  $settings['image']['url'];  
+        $pageLink = ""; 
+
+        if ( ! empty( $settings['website_link']['url'] ) ) {
+			$this->add_link_attributes( 'website_link', $settings['website_link'] ); 
+            $pageLink = $this->get_render_attribute_string( 'website_link' ); 
+		}
 
 	
 		// Get image HTML
@@ -99,7 +123,7 @@ class Widget_link_image extends \Elementor\Widget_Base {
 	
 
 
-       echo '<div class="image" style="background-image:url('.$url.')"><div class="cover"><h3 class="linkImage-widget-text">' . $settings['title'] . '</h3></div></div>';
+       echo '<div class="image" style="background-image:url('.$url.')"><a'. " ". $pageLink .'><div class="cover"><h3 class="linkImage-widget-text">' . $settings['title'] . '</h3></div></a></div>';
 
     
     }
@@ -123,7 +147,9 @@ class Widget_link_image extends \Elementor\Widget_Base {
 				return;
 			}
 		}
-		#>
+		#> 
+
+
 		
     <?php
     }
