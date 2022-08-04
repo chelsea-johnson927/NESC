@@ -146,7 +146,8 @@ function nesctheme_scripts() {
 	wp_enqueue_style( 'nesctheme-style', get_stylesheet_uri(), array(), _S_VERSION ); 
 	wp_enqueue_style( 'main.css', get_template_directory_uri() . '/custom-styles/main.css', array(), '1.0.0');  
 	wp_enqueue_style( 'bootstrap.min', get_template_directory_uri() . '/bootstrap/css/bootstrap.min.css', array(), '5.2.0'); 
-	wp_enqueue_style( 'main', get_stylesheet_directory_uri() . '/fullcalendar/lib /main.css','5.11.2','all' );  
+	wp_enqueue_style( 'main', get_stylesheet_directory_uri() . '/fullcalendar/lib /main.css','5.11.2','all' );   
+	wp_enqueue_style( 'single-event', get_template_directory_uri() . '/custom-styles/single-event.css', array(), '1.0.0'); 
 
 	wp_style_add_data( 'nesctheme-style', 'rtl', 'replace' );
 

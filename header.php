@@ -27,7 +27,8 @@
 
 			<?php if ( is_front_page()){ 
 
-				echo '<header class="light-theme">'; 
+				echo '<header class="light-theme">';  
+
 
 			}else{ 
 
@@ -61,9 +62,20 @@
 							 ?> 
 					
 					</nav> 
-					</div>   
+					</div>    
+					</div>
 				<div class="row">
-				  <div class="col-sm-12 site-header-wrap">  
+				  <div class="col-sm-12 site-header-wrap">   
+
+				  <?php
+				  $custom_logo_id = get_theme_mod( 'custom_logo' );
+				$logo = wp_get_attachment_image_src( $custom_logo_id , 'thumbnail' );
+				 
+				if ( has_custom_logo() ) {
+					echo '<img src="' . esc_url( $logo[0] ) . '" alt="' . get_bloginfo( 'name' ) . '">';
+				}  
+
+					?>
 
 						<h1 class="site-header"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?> </a></h1> 
 						<h2 class="site-tagline"><?php bloginfo( 'description' ); ?></h2> 
@@ -72,7 +84,7 @@
 				</div>
 				</div> 
 					</header>
-				
+				<main id="page-content">
 		
 		
 		

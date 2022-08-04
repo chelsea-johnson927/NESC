@@ -11,20 +11,27 @@
 
 ?>
 
-	<footer id="colophon" class="site-footer">
-		<div class="site-info">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'nesctheme' ) ); ?>">
-				<?php
-				/* translators: %s: CMS name, i.e. WordPress. */
-				printf( esc_html__( 'Proudly powered by %s', 'nesctheme' ), 'WordPress' );
-				?>
-			</a>
-			<span class="sep"> | </span>
+     </main>
+	<footer id="colophon" class="site-footer">  
+		<div class="container"> 
+			<div class="row"> 
+				<div class="col-sm-12 footer-content">
+					<div class="site-info">   
+					<?php dynamic_sidebar( 'sidebar-1' ); ?>
+
+
+					</div>
+				</div> 
+            </div>
+
+				<div class="row"> 
+				<div class="col-sm-12" style="text-align:center;">
 				<?php
 				/* translators: 1: Theme name, 2: Theme author. */
-				printf( esc_html__( 'Theme: %1$s by %2$s.', 'nesctheme' ), 'nesctheme', '<a href="http://underscores.me/">Underscores.me</a>' );
+				printf( esc_html__( 'Theme: %1$s by %2$s.', 'nesctheme' ), 'nesctheme', 'synthcube' );
 				?>
-		</div><!-- .site-info -->
+				</div></div> 
+</div>
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 
