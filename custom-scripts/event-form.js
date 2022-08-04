@@ -10,7 +10,8 @@ jQuery(document).ready(function($){
     var lastName =  document.getElementById("lname").value;
     var phone = document.getElementById("phone").value;
     var email = document.getElementById("email").value;
-    var ID = document.getElementById("event-ID-holder").value;  
+    var ID = document.getElementById("event-ID-holder").value;   
+    var eStat = document.getElementById("event-status-holder").value; 
 
 
     jQuery.ajax({
@@ -22,14 +23,15 @@ jQuery(document).ready(function($){
           "lname": lastName, 
           "phone":phone, 
           "email":email, 
-          "ID" : ID
+          "ID" : ID,
+          "eStat" : eStat
         
         },  
         success: function(data) { 
 
             $("#registration-form").hide(1000, function(){ 
 
-                $("#registrant-message").text("You are all set! We look forward to seeing you!");  
+                $("#registrant-message").text("You are all set! A confirmation email has been sent to the email provided in the form.");  
 
                 console.log(data); 
             });  
