@@ -1,4 +1,8 @@
-body{ font-family: "audiowide",arial,sans-serif !important; } 
+body{  
+    font-family: "audiowide",arial,sans-serif !important;   
+    margin:0 !important; 
+
+} 
 
 div.content-wrap{  
     max-width:1690px; 
@@ -190,12 +194,41 @@ h2.site-tagline{
 .dark-theme{ 
 
     background: #000;
-} 
+}  
+
+.dark-theme img{ 
+
+    display:none; 
+}
 
 .dark-theme h1 a{ 
 
     color:#fff; 
     text-decoration: none;
+}  
+
+footer{ 
+
+    color:#fff; 
+    background:#000; 
 } 
 
+.footer-content{ 
+
+    margin-top: 5em !important;
+}
+
+footer .footer-content ul{ 
+
+    margin: 0; 
+    padding: 0;
+    list-style-type: none;
+
+} 
+
+footer .footer-content a{ 
+
+    text-decoration: none;
+    color: inherit;
+}
  
