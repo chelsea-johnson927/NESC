@@ -1,8 +1,8 @@
 <?php 
 add_action('wp_ajax_nopriv_calendar','soulCalendar');
 add_action('wp_ajax_calendar','soulCalendar'); 
-//add_action('wp_ajax_nopriv_syn','synthForm');
-//add_action('wp_ajax_syn','synthForm');  
+add_action('wp_ajax_nopriv_syn','synthForm');
+add_action('wp_ajax_syn','synthForm');  
 //add_action( 'wp_ajax_unregister', 'unregister' ); 
 //add_action( 'wp_ajax_addtoreg', 'addtoreg' );  
 
@@ -53,7 +53,7 @@ function synthForm(){
     $email = $_POST["email"]; 
     $phone = $_POST["phone"];  
     $eventID = $_POST["ID"]; 
-    $eStat = $_POST["event-status-holder"]; 
+    $eStat = $_POST["eStat"]; 
     $table_name = "";    
    
 
@@ -66,18 +66,12 @@ function synthForm(){
  
        $table_name = $wpdb->prefix . 'registrants';
       
-    }elseif( $eStat == "Full"){ 
+    }else{ 
 
         $table_name = $wpdb->prefix . 'waitlist';
        
-    }else{ 
-
-        
     }
-
-
-     
-    $query = "SELECT  eventID FROM $table_name WHERE eventID ="." $eventID"; 
+    //$query = "SELECT  eventID FROM $table_name WHERE eventID ="." $eventID"; 
  
     $wpdb->insert( 
         $table_name, 
@@ -98,68 +92,6 @@ die();
 
 }
 
-
-
-    function  unregister() {
-        
-        global $wpdb;  
-        $table_name = $wpdb->prefix."registrants"; 
-        $dataID= $_POST["ID"]; 
-	    $wpdb->delete( $table_name, array( 'id' => $dataID ) );
-
-    
-        wp_die(); // this is required to terminate immediately and return a proper response
-    }
-
-
-    function  addtoreg() {
-        
-        global $wpdb;   
-        global $post;
-        $table_name = $wpdb->prefix."waitlist";  
-        $reg_table = $wpdb->prefix."registrants";  
-        $dataID= $_POST["ID"]; 
-         
-        //making sure there is space in the registration box to add a person from the waitlist 
-
-        if(isset($_GET['post']) && !empty($_GET['post'])){ 
-
-            $eventID = $_GET['post'];   
-
-            $rowcount = intval($wpdb->get_var("SELECT COUNT(*) FROM  $reg_name  WHERE eventID ="." $eventID"));  
-
-            $max_reg = intval(get_post_meta($post->ID, 'max_registrants', true));  
-
-            if($max_reg == 10){ 
-
-                $query = "SELECT  * FROM $table_name WHERE id ="." $dataID";  
-
-                $result = $wpdb->get_results($query);  
-
-
-               $success =  $wpdb->insert( $reg_name, $result);     
-
-               if($success){ 
-
-                $wpdb->delete( $table_name, array( 'id' => $dataID ) ); 
-
-               }else{ 
-
-
-            }
-             
-
-    }else{ 
-
-    }   
-
-}
-
- wp_die(); // this is required to terminate immediately and return a proper response
-
-
-
-    }
     
     
   ?> 
