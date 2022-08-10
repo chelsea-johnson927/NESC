@@ -205,7 +205,15 @@ h2.site-tagline{
 
     color:#fff; 
     text-decoration: none;
-}  
+}   
+
+.single-page-content{ 
+
+    margin: 2% auto;
+    width: 30%;
+    text-align: justify;
+    font-family: sans-serif;
+}
 
 footer{ 
 
