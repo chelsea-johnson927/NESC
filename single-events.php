@@ -20,12 +20,14 @@ get_header();
 	while ( have_posts() ) {
 		
         the_post();    
-        $postID = get_the_ID(); 
+        $postID = get_the_ID();  
+        $cost = get_post_meta( $postID, 'event_cost', true); 
         $eventStat = get_post_meta( $postID, 'event_status', true);  
         $spotsLeft = get_post_meta( $postID, 'spots_left', true );  
 
     }  
 
+    if($cost == 'Free'){
     if($eventStat == "Open" || $eventStat == "Almost Full"){  
 
        
@@ -37,22 +39,17 @@ get_header();
             echo '<p id="registrant-message">Only'." ".'<span style="color:red; font-weight:bold">'. $spotsLeft. '</span>'." ".'spots left! Register Now!</p>';  
 
 
-        } ?>
-
-       
-<?php
+        } 
 
     }else{ 
 
         echo '<p id="registrant-message">This event has now reached its maximum number of registrants. However, you can sign up on the form below to be on the waitlist for this event. If a spot opens up, we will add you to the registration list and follow up with the email you provide.</p>'; 
     } 
 
-} 
+
 ?>        
 
-          
-                
-
+        
 <h3 class="form-title">REGISTER HERE</h3> 
         <form id="registration-form"> 
         <label for="name">Enter your first name</label>
@@ -68,20 +65,15 @@ get_header();
             <input type="submit" value="REGISTER">
             </form> 
 
-            
+        </div>   
+    <?php }else{ 
 
+                the_content();
 
+    }
 
-
-
-
-
-
-
-
-
-    
-        </div> 
+} 
+?>
 </div>
   </div>
 <?php get_footer(); ?> 

@@ -147,7 +147,9 @@ function nesctheme_scripts() {
 	wp_enqueue_style( 'main.css', get_template_directory_uri() . '/custom-styles/main.css', array(), '1.0.0');  
 	wp_enqueue_style( 'bootstrap.min', get_template_directory_uri() . '/bootstrap/css/bootstrap.min.css', array(), '5.2.0'); 
 	wp_enqueue_style( 'main', get_stylesheet_directory_uri() . '/fullcalendar/lib /main.css','5.11.2','all' );   
-	wp_enqueue_style( 'single-event', get_template_directory_uri() . '/custom-styles/single-event.css', array(), '1.0.0'); 
+	wp_enqueue_style( 'single-event', get_template_directory_uri() . '/custom-styles/single-event.css', array(), '1.0.0');  
+	wp_enqueue_style('all-events.css', get_template_directory_uri() . '/custom-styles/all-events.css', array(), '1.0.0'); 
+	wp_enqueue_style('mobile', get_template_directory_uri() . '/custom-styles/mobile.css', array(), '1.0.0');
 
 	wp_style_add_data( 'nesctheme-style', 'rtl', 'replace' );
 
@@ -158,7 +160,8 @@ function nesctheme_scripts() {
 	wp_enqueue_script( 'calendar-scripts', get_template_directory_uri() . '/custom-scripts/calendar-scripts.js', array('jquery'),'',true);    
 	wp_localize_script('calendar-scripts', 'soul', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));    
 	wp_enqueue_script( 'event-form', get_template_directory_uri() . '/custom-scripts/event-form.js', array(), _S_VERSION, true );     
-	wp_localize_script('event-form', 'synth', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ))); 
+	wp_localize_script('event-form', 'synth', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));  
+
 	
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
