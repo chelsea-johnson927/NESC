@@ -26,12 +26,21 @@ jQuery(document).ready(function($){
           "ID" : ID,
           "eStat" : eStat
         
-        },  
-        success: function(data) { 
+        },   
+ 
+        beforeSend: function() {
+            
+            $("#registrant-message").text("Processing form please wait..."); 
+        },
 
+        success: function(data) {  
+
+          
             $("#registration-form").hide(1000, function(){ 
 
-                $("#registrant-message").text("You are all set! A confirmation email has been sent to the email provided in the form.");  
+                $("#registrant-message").text("You are all set! A confirmation email has been sent to the email provided in the form.");   
+                
+
 
                 console.log(data); 
             });  
