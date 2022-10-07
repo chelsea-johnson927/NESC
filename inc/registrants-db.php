@@ -79,12 +79,13 @@ foreach ($tables as $table) {
             <th>First Name</th> 
             <th>Last Name</th>  
             <th>Phone Number</th>  
-            <th>Email</th>  
-            <tr>'; 
+            <th>Email</th>   
+            <th>Button</th>
+            </tr>'; 
 
             foreach($results as $row){ 
 
-                echo '<tr><td id="fname">'.$row->firstName . '</tb><td> 
+                echo '<tr><td id="fname">'.$row->firstName . '</tb>
                 <td id="lname">'.$row->lastName . '</tb> 
                 <td id="phone">'. $row->phoneNumber . '</tb> 
                 <td id="email">'. $row->email . '</td> 

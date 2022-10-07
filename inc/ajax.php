@@ -3,8 +3,7 @@ add_action('wp_ajax_nopriv_calendar','soulCalendar');
 add_action('wp_ajax_calendar','soulCalendar'); 
 add_action('wp_ajax_nopriv_syn','synthForm');
 add_action('wp_ajax_syn','synthForm');  
-//add_action( 'wp_ajax_unregister', 'unregister' ); 
-//add_action( 'wp_ajax_addtoreg', 'addtoreg' );  
+
 
 
 
@@ -53,9 +52,11 @@ function synthForm(){
     $email = $_POST["email"]; 
     $phone = $_POST["phone"];  
     $eventID = $_POST["ID"]; 
-    $eStat = $_POST["eStat"]; 
+    $eStat = $_POST["eStat"];  
+    $postTitle = get_the_title($eventID); 
+    $postTime = get_post_meta( $eventID, 'start_time', true ); 
     $table_name = "";    
-   
+    $headers = array('Content-Type: text/html; charset=UTF-8');
 
     //determine whether we need to insert user information in registrantion or waitlist table by looking at the 
     //current status of the event. (Open, almost full, or full).  
@@ -64,14 +65,18 @@ function synthForm(){
 
     if($eStat == "Open" || $eStat == "Almost Full" ){ 
  
-       $table_name = $wpdb->prefix . 'registrants';
+       $table_name = $wpdb->prefix . 'registrants'; 
+       $subject = 'Notification For NESC' . $postTitle . 'Registration'; 
+       $body = 'You are now registered for ' . $postTitle . 'which will be held on' . $postTime . ' at location: 167 Prospect Street Unit #1 Waltham,MA 02453. If you need to unregister for any reason please call: 781.538.6519  or email:people@newenglandsynth.com  to unregister. Thanks!'; 
       
     }else{ 
 
-        $table_name = $wpdb->prefix . 'waitlist';
+        $table_name = $wpdb->prefix . 'waitlist'; 
+        $subject = 'Notification For'. $postTitle . 'Waitlist'; 
+       $body = 'You are now placed on the waitlist  for ' . $postTitle . 'which will be held on' . $postTime . 'at location: 167 Prospect Street Unit #1 Waltham,MA 02453. If a spot opens up, we will add you to the registration list then reach out to you via email. Thanks!'; 
        
     }
-    //$query = "SELECT  eventID FROM $table_name WHERE eventID ="." $eventID"; 
+    
  
     $wpdb->insert( 
         $table_name, 
@@ -86,6 +91,10 @@ function synthForm(){
     );    
 
 
+ 
+wp_mail( $email, $subject, $body, $headers ); 
+
+echo json_encode($eStat);
 
 die();  
 
