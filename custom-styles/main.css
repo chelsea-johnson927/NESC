@@ -1,6 +1,7 @@
 body{  
     font-family: "audiowide",arial,sans-serif !important;   
-    margin:0 !important; 
+    margin:0 !important;  
+    background:#000 !important;
 
 } 
 
@@ -205,7 +206,9 @@ h2.site-tagline{
 
     color:#fff; 
     text-decoration: none;
-}   
+}    
+
+/*main content styles*/
 
 .single-page-content{ 
 
@@ -213,18 +216,31 @@ h2.site-tagline{
     width: 30%;
     text-align: justify;
     font-family: sans-serif;
-}
+} 
 
+
+
+/*footer styles*/
 footer{ 
 
     color:#fff; 
-    background:#000; 
+    background:#000;  
+    font-family: 'Lato' ,Helvetica ,sans-serif;
+    font-size: 1em;
+
 } 
 
 .footer-content{ 
 
-    margin-top: 5em !important;
-}
+    margin-top: 0em !important;
+} 
+
+footer h5{  
+
+font-family: "audiowide",arial,sans-serif !important; 
+font-size: 1.3em; 
+} 
+
 
 footer .footer-content ul{ 
 

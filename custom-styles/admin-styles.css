@@ -1,0 +1,28 @@
+ div.inside table{ 
+
+    position: relative;
+    width: 1300px;
+} 
+
+ div.inside th{ 
+ 
+    text-align: center; 
+    padding: 7px;
+    background: #c6c6c6;
+    font-weight: bold;
+    font-size: 15px;
+    color: #000;
+
+} 
+
+ div.inside td{ 
+
+text-align: center; 
+border: 1px solid #eee;
+    border-top: none;
+    padding: 7px;
+    border-collapse: collapse;
+    font-weight: bold;
+    color: #000;
+    font-size: 15px;
+}

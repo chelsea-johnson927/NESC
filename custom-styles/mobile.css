@@ -17,5 +17,40 @@
     
     }
 
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {...}
+    @media only screen and (max-width: 992px) {  
+
+
+        #events-list li a { font-size: 1em; }
+
+    } 
+
+    @media only screen and (max-width: 764px) {  
+
+
+        #events-list li a { font-size: 0.8em; } 
+
+        #events-list li:nth-child(even) {
+            
+            margin-left: -13px;
+            font-size: 0.6em; 
+            padding: 5px;  
+        }
+
+    } 
+
+    @media only screen and (max-width: 700px) {  
+
+
+        ul#events-list {
+            padding: 10px;
+            padding-left: 0;
+        }
+
+        #events-list li a { font-size: 0.6em; } 
+        
+        #events-list li:nth-child(even) {
+            
+           display: none; 
+        }
+
+    } 
