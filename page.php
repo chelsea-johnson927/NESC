@@ -15,7 +15,7 @@
 get_header();
 ?>
 
-<div class="container-fluid"> 
+<div class="container-fluid page"> 
     <div class="row"> 
 		<div class="col-sm-12"> 
 			<div class="single-page-content">

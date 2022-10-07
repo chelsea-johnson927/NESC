@@ -139,14 +139,26 @@ function nesctheme_widgets_init() {
 }
 add_action( 'widgets_init', 'nesctheme_widgets_init' );
 
+
+add_action( 'admin_enqueue_scripts', 'load_admin_style' );
+function load_admin_style() {
+    wp_register_style( 'admin-styles', get_template_directory_uri() . '/custom-styles//admin-styles.css', false, '1.0.0' );
+    
+    wp_enqueue_style( 'admin-styles', get_template_directory_uri() . '/custom-styles//admin-styles.css', false, '1.0.0' );
+}
+
+
+
+
 /**
  * Enqueue scripts and styles.
  */
 function nesctheme_scripts() {
 	wp_enqueue_style( 'nesctheme-style', get_stylesheet_uri(), array(), _S_VERSION ); 
 	wp_enqueue_style( 'main.css', get_template_directory_uri() . '/custom-styles/main.css', array(), '1.0.0');  
-	wp_enqueue_style( 'bootstrap.min', get_template_directory_uri() . '/bootstrap/css/bootstrap.min.css', array(), '5.2.0'); 
-	wp_enqueue_style( 'main', get_stylesheet_directory_uri() . '/fullcalendar/lib /main.css','5.11.2','all' );   
+	wp_enqueue_style( 'bootstrap.min', get_template_directory_uri() . '/bootstrap/css/bootstrap.min.css', array(), '5.2.0');  
+	wp_enqueue_style( 'elementor-styles', get_template_directory_uri() . '/custom-styles/elementor-styles.css', array(), '5.2.0');  
+	wp_enqueue_style( 'main', get_stylesheet_directory_uri() . '/fullcalendar/lib/main.min.css','5.11.2','all' );   
 	wp_enqueue_style( 'single-event', get_template_directory_uri() . '/custom-styles/single-event.css', array(), '1.0.0');  
 	wp_enqueue_style('all-events.css', get_template_directory_uri() . '/custom-styles/all-events.css', array(), '1.0.0'); 
 	wp_enqueue_style('mobile', get_template_directory_uri() . '/custom-styles/mobile.css', array(), '1.0.0');
@@ -155,11 +167,11 @@ function nesctheme_scripts() {
 
 	wp_enqueue_script( 'nesctheme-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true ); 
 	wp_enqueue_script( 'bootstrap.min', get_template_directory_uri() . '/bootstrap/js/bootstrap.min.js', array(), '5.2.0'); 
-	wp_enqueue_script( 'header', get_template_directory_uri() . '/custom-scripts/header.js', array(), _S_VERSION, true );     
-	wp_enqueue_script( 'main', get_template_directory_uri() . '/fullcalendar/lib/main.js', array('jquery'),'5.11.2',true); 
+	wp_enqueue_script( 'header', get_template_directory_uri() . '/custom-scripts/header.js', array(),'3.6.0', true );     
+	wp_enqueue_script( 'main', get_template_directory_uri() . '/fullcalendar/lib/main.min.js', array('jquery'),'5.11.2',true); 
 	wp_enqueue_script( 'calendar-scripts', get_template_directory_uri() . '/custom-scripts/calendar-scripts.js', array('jquery'),'',true);    
 	wp_localize_script('calendar-scripts', 'soul', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));    
-	wp_enqueue_script( 'event-form', get_template_directory_uri() . '/custom-scripts/event-form.js', array(), _S_VERSION, true );     
+	wp_enqueue_script( 'event-form', get_template_directory_uri() . '/custom-scripts/event-form.js', array('jquery'),'3.5.0', true );     
 	wp_localize_script('event-form', 'synth', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));  
 
 	
@@ -169,18 +181,6 @@ function nesctheme_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'nesctheme_scripts' );  
 
-
-
-function my_plugin_frontend_stylesheets() {
-
-	wp_register_style( 'elementor-styles', get_template_directory_uri() . '/custom-styles/elementor-styles.css'  );
-	
-
-	wp_enqueue_style( 'elementor-styles' );
-	
-
-}
-add_action( 'elementor/frontend/after_enqueue_styles', 'my_plugin_frontend_stylesheets' );
 
 
 // Register Custom Post Type

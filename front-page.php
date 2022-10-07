@@ -2,7 +2,9 @@
 
 get_header();  
 
-echo '<main id="page-content">';  
+echo '<div class="container-fluid"> 
+		<div class="row"> 
+			<div class="col-sm-12 main-content">';  
 
 if ( have_posts() ) {
 	while ( have_posts() ) {
@@ -13,7 +15,10 @@ if ( have_posts() ) {
 	} // end while
 } // end if
 
-echo '</main>'; 
+echo '</div> 
+      </div> 
+	  </div> 
+	  </main>'; 
 
 get_footer(); 
 ?> 
